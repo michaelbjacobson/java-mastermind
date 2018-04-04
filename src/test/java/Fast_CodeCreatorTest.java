@@ -2,7 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class CodeCreatorTest {
+public class Fast_CodeCreatorTest {
 
     private CodeCreator subject;
 

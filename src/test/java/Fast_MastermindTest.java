@@ -3,7 +3,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class MastermindTest {
+public class Fast_MastermindTest {
 
     private CodeCreator codeCreator;
     private Mastermind subject;

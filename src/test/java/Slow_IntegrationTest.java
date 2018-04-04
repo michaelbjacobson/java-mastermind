@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class IntegrationTest {
+public class Slow_IntegrationTest {
 
     private static WebDriver driver;
 

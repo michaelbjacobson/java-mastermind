@@ -1,50 +1,20 @@
 pipeline {
     agent {
-        node {
-            label 'master'
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2'
         }
-    }
-environment {
-        TERRAFORM_CMD = 'docker run --network host " -w /app -v ${HOME}/.aws:/root/.aws -v ${HOME}/.ssh:/root/.ssh -v `pwd`:/app hashicorp/terraform:light'
     }
     stages {
-        stage('checkout repo') {
+        stage('Build') {
             steps {
-              checkout scm
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('pull latest light terraform image') {
+        stage('Test') {
             steps {
-                sh  """
-                    docker pull hashicorp/terraform:light
-                    """
+                sh 'mvn test'
             }
-        }
-        stage('init') {
-            steps {
-                sh  """
-                    ${TERRAFORM_CMD} init -backend=true -input=false
-                    """
-            }
-        }
-        stage('plan') {
-            steps {{
-                sh  """
-                    ${TERRAFORM_CMD} plan -out=tfplan -input=false
-                    """
-                script {
-                  timeout(time: 10, unit: 'MINUTES') {
-                    input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
-                  }
-                }
-            }
-        }
-        stage('apply') {
-            steps {
-                sh  """
-                    ${TERRAFORM_CMD} apply -lock=false -input=false tfplan
-                    """
-}
         }
     }
 }

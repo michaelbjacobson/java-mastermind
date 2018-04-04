@@ -1,5 +1,5 @@
-sudo apt-add-repository ppa:mozillateam/firefox-next
-sudo apt-get update
-sudo apt-get install firefox xvfb
+apt-add-repository ppa:mozillateam/firefox-next
+apt-get update
+apt-get install firefox xvfb
 Xvfb :10 -ac &
 export DISPLAY=:10

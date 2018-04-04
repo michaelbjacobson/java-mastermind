@@ -16,10 +16,9 @@ node {
         }
     }
 
-    stage('Apply terraform') {
-            app.inside {
-                sh 'terraform apply -input=false -auto-approve'
-            }
-        }
+    stage('Test') {
+        sh 'pwd'
+        sh 'ls'
+    }
 
 }

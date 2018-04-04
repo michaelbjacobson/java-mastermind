@@ -1,7 +1,7 @@
 node {
     def app
 
-    stage('Clone repository') {
+    stage('Clone repo') {
         checkout scm
     }
 
@@ -9,13 +9,13 @@ node {
         app = docker.build("michaeljacobson/mastermind")
     }
 
-    stage('Unit test Docker image') {
+    stage('Run unit tests') {
         app.inside {
             sh 'mvn test'
         }
     }
 
-    stage('Push Docker image to ECR') {
+    stage('Push to ECR') {
         docker.withRegistry('https://445579089480.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:mastermind-ecr-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")

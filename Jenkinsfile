@@ -10,15 +10,14 @@ node {
     }
 
 
-    stage('Run unit tests') {
+    stage('Run unit tests (inside)') {
         app.inside {
             sh 'mvn test'
         }
     }
 
-    stage('Test') {
-        sh 'pwd'
-        sh 'ls'
+    stage('Run unit tests (outside)') {
+        sh 'mvn test'
     }
 
 }

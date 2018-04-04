@@ -2,3 +2,4 @@ wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodrive
 tar -xvzf geckodriver*
 chmod +x geckodriver
 pwd
+ls

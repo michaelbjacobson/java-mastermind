@@ -9,18 +9,17 @@ node {
         app = docker.build("michaeljacobson/mastermind")
     }
 
-    stage('Setup environment for integration tests') {
-        app.inside {
-            sh 'chmod +x ./install_firefox.sh'
-            sh './install_firefox.sh'
-            sh 'chmod +x ./install_geckodriver.sh'
-            sh './install_geckodriver.sh'
-        }
-    }
 
     stage('Run unit tests') {
         app.inside {
             sh 'mvn test'
         }
     }
+
+    stage('Apply terraform') {
+            app.inside {
+                sh 'terraform apply -input=false -auto-approve'
+            }
+        }
+
 }

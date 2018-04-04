@@ -9,15 +9,10 @@ node {
         app = docker.build("michaeljacobson/mastermind")
     }
 
-
-    stage('Run unit tests (inside)') {
+    stage('Run unit tests') {
         app.inside {
             sh 'mvn test'
         }
-    }
-
-    stage('Run unit tests (outside)') {
-        sh 'mvn test'
     }
 
 }

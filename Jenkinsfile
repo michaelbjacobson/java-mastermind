@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://445579089480.dkr.ecr.eu-west-2.amazonaws.com/mastermind', 'ecr:eu-west-2:aws-credentials') {
+        docker.withRegistry('https://445579089480.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:aws-credentials') {
             app.push("latest")
         }
     }

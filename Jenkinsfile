@@ -16,7 +16,8 @@ node {
     }
 
     stage('Push image') {
-        echo "${credentials(ecr-credentials)}"
+        echo "Hello, World!"
+        echo credentials(ecr-credentials)
     }
 
 }

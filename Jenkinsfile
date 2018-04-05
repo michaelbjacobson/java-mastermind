@@ -5,7 +5,7 @@ node {
         checkout scm
     }
 
-    stage('Build Docker image') {
+    stage('Build image') {
         app = docker.build("mastermind")
     }
 
@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        sh '\$(/usr/local/bin/aws ecr get-login)'
+        app.push('latest')
     }
 
 }

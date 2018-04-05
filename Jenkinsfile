@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        sh '\$(aws ecr get-login)'
+        sh '\$(/usr/local/bin/aws ecr get-login)'
     }
 
 }

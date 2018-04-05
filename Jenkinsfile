@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build Docker image') {
-        app = docker.build("michaeljacobson/mastermind")
+        app = docker.build("mastermind")
     }
 
     stage('Run unit tests') {

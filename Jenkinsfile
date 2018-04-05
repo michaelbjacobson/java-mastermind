@@ -16,8 +16,7 @@ node {
     }
 
     stage('Push image') {
-        echo "Hello, World!"
-        credentials('docker-hub-credentials')
+        sh '\$(aws ecr get-login)'
     }
 
 }

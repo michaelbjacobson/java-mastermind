@@ -18,7 +18,9 @@ resource "aws_launch_configuration" "ecs_instance" {
   iam_instance_profile = "ecsInstanceRole"
   name_prefix = "ecs-instance-"
   instance_type = "t2.micro"
+  security_groups = ["${aws_security_group.allow_all.id}"]
   image_id = "ami-cb17d8b6"
+  key_name = "mastermind"
   user_data = <<-EOF
               #!/bin/bash
               echo ECS_CLUSTER="${aws_ecs_cluster.ecs_cluster.name}" >> /etc/ecs/ecs.config
@@ -60,5 +62,23 @@ resource "aws_elb" "mastermind_elb" {
     lb_protocol = "http"
     instance_port = 4567
     instance_protocol = "http"
+  }
+}
+
+resource "aws_security_group" "allow_all" {
+  name = "allow-all"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
   }
 }

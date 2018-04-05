@@ -17,7 +17,7 @@ node {
 
     stage('Push image') {
         echo "Hello, World!"
-        echo credentials(ecr-credentials)
+        echo credentials(docker-hub-credentials)
     }
 
 }

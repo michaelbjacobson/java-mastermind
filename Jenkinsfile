@@ -16,11 +16,8 @@ node {
     }
 
     stage('Push image') {
-        app.inside {
-            sh 'eval $(aws ecr get-login | sed "s|https://||")'
-        }
-        docker.withRegistry('https://445579089480.dkr.ecr.eu-west-2.amazonaws.com') {
-            app.push("latest")
+        docker.withRegistry('https://445579089480.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:ecr-credentials') {
+            app.push('latest')
         }
     }
 

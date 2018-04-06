@@ -7,7 +7,8 @@ node {
 
     stage('Build image') {
         sh 'mkdir .docker'
-        sh 'mv .config.json .docker/config.json'
+        sh 'mv config.json .docker/config.json'
+        sh 'DOCKER_CONFIG=$JENKINS_HOME/.docker'
         app = docker.build("mastermind")
     }
 

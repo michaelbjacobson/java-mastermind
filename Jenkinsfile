@@ -6,7 +6,8 @@ node {
     }
 
     stage('Build image') {
-        sh 'cat ./config.json'
+        sh 'mkdir .docker'
+        sh 'mv .config.json .docker/config.json'
         app = docker.build("mastermind")
     }
 

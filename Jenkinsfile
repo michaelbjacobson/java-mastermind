@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build("michaeljacobson/mastermind")
+        app = docker.build("mastermind")
     }
 
     stage('Run unit tests') {
@@ -16,13 +16,9 @@ node {
     }
 
     stage('Push image') {
-        withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            docker.withRegistry('', 'docker-hub-credentials') {
-                sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
-            }
+        docker.withRegistry("445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
-
 }

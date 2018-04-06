@@ -9,13 +9,7 @@ node {
         app = docker.build("mastermind")
     }
 
-    stage('Push image') {
-        sh 'pwd'
-        sh 'ls -alt'
-
-        app.inside {
-            sh 'pwd'
-            sh 'ls -alt'
-        }
+    stage('Run unit tests') {
+        sh 'mvn test'
     }
 }

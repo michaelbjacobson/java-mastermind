@@ -2,6 +2,7 @@ node {
     def app
 
     stage('Clone repo') {
+        sh 'pwd'
         checkout scm
     }
 

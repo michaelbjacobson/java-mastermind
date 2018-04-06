@@ -9,7 +9,7 @@ node {
         sh 'cd .docker'
         sh 'pwd'
         sh 'ls -alt'
-        app = docker.build("mastermind")
+        app = docker.build("mj/mastermind")
     }
 
     stage('Run unit tests') {

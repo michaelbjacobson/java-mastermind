@@ -16,10 +16,8 @@ node {
     }
 
     stage('Push image') {
+        sh 'aws help'
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-creds") {
-            sh 'cd'
-            sh 'pwd'
-            sh 'ls -alt | grep docker'
             app.push("latest")
         }
     }

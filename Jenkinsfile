@@ -10,6 +10,9 @@ node {
     }
 
     stage('Push image') {
+        sh 'pwd'
+        sh 'ls -alt'
+
         app.inside {
             sh 'pwd'
             sh 'ls -alt'

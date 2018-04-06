@@ -7,6 +7,7 @@ node {
 
     stage('Build image') {
         sh 'cd .docker'
+        sh 'pwd'
         sh 'ls -alt'
         app = docker.build("mastermind")
     }

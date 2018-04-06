@@ -82,3 +82,29 @@ resource "aws_security_group" "allow_all" {
     cidr_blocks     = ["0.0.0.0/0"]
   }
 }
+
+data "aws_route53_zone" "hosted_zone" {
+  name = "java-mastermind.com."
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = "${data.aws_route53_zone.hosted_zone.zone_id}"
+  name    = "www.${data.aws_route53_zone.hosted_zone.name}"
+  type    = "A"
+  alias {
+    name = "dualstack.${aws_elb.mastermind_elb.dns_name}"
+    zone_id = "${aws_elb.mastermind_elb.zone_id}"
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "blank" {
+  zone_id = "${data.aws_route53_zone.hosted_zone.zone_id}"
+  name    = "${data.aws_route53_zone.hosted_zone.name}"
+  type    = "A"
+  alias {
+    name = "dualstack.${aws_elb.mastermind_elb.dns_name}"
+    zone_id = "${aws_elb.mastermind_elb.zone_id}"
+    evaluate_target_health = false
+  }
+}

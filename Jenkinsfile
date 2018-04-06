@@ -6,7 +6,22 @@ node {
     }
 
     stage('Build image') {
-        sh 'cat ./.config.json'
+        sh 'cd'
+        sh 'pwd'
+        sh 'ls -alt'
+        sh 'ls -alt | grep config'
         app = docker.build("mastermind")
+    }
+
+    stage('Run unit tests') {
+        app.inside {
+            sh 'mvn test'
+        }
+    }
+
+    stage('Push image') {
+        docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-creds") {
+            app.push("latest")
+        }
     }
 }

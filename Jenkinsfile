@@ -10,6 +10,6 @@ node {
     }
 
     stage('Push image') {
-        sh '/usr/local/bin/pip install awscli'
+        sh 'easy_install pip'
     }
 }

@@ -2,9 +2,6 @@ FROM java:8
 
 RUN apt-get update
 RUN apt-get install -y maven
-RUN apt-get install -y python-pip
-RUN apt-get install groff -y
-RUN pip install awscli
 
 WORKDIR /code
 

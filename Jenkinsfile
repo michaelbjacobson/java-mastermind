@@ -10,8 +10,6 @@ node {
     }
 
     stage('Push image') {
-        app.inside {
-            sh 'aws help'
-        }
+        sh 'pip install aws'
     }
 }

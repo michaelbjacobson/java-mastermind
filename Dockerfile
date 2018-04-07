@@ -5,7 +5,7 @@ RUN apt-get install -y maven
 RUN apt-get install -y python-pip
 RUN pip install awscli
 RUN apt-get install groff -y
-RUN /usr/share/groff# apt-get install --reinstall groff-base
+RUN aws help
 
 WORKDIR /code
 

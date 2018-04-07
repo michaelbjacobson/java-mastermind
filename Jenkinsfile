@@ -10,8 +10,8 @@ node {
     }
 
     stage('Push image') {
-        sh 'apt-get install python-pip'
-        sh 'pip install awscli'
-        sh 'aws help'
+        app.inside {
+            sh 'aws help'
+        }
     }
 }

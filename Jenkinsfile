@@ -10,6 +10,8 @@ node {
     }
 
     stage('Push image') {
-        sh 'aws help'
+        app.inside {
+            sh 'aws help'
+        }
     }
 }

@@ -6,13 +6,13 @@ node {
     }
 
     stage('Build image') {
-        sh 'whoami; cd ../..; pwd; ls -alt | grep docker'
+        sh 'whoami; cd ../..; pwd; ls -alt | grep docker; cat dockercfg'
         app = docker.build("mastermind")
     }
 
     stage('Push image') {
         withDockerRegistry([credentialsId: 'ecr:us-east-1:aws-credentials', url: 'https://445579089480.dkr.ecr.us-east-1.amazonaws.com']) {
-            app.push('latest')
+            sh 'whoami; cd ../..; pwd; ls -alt | grep docker; cat dockercfg'
         }
     }
 }

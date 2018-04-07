@@ -10,9 +10,6 @@ node {
     }
 
     stage('Push image') {
-        withPythonEnv('python'){
-            pysh 'pip install awscli'
-            pysh 'aws help'
-        }
+        sh '/usr/local/bin/pip install awscli'
     }
 }

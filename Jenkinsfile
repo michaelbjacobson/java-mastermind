@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        sh 'export DOCKER_CONFIG=$JENKINS_HOME/.docker'
+        sh 'echo "export DOCKER_CONFIG=$JENKINS_HOME/.docker" >> ~/.bashrc'
         sh 'printenv'
 
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {

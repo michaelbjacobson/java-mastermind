@@ -6,7 +6,8 @@ node {
     }
 
     stage('Build image') {
-        sh 'DOCKER_CONFIG=$JENKINS_HOME/.docker'
+        sh 'export DOCKER_CONFIG=$JENKINS_HOME/.docker'
+
         app = docker.build("mastermind")
     }
 

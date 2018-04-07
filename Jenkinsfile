@@ -2,7 +2,6 @@ node {
     def app
 
     stage('Clone repo') {
-        sh 'printenv'
         checkout scm
     }
 
@@ -11,8 +10,8 @@ node {
     }
 
     stage('Push image') {
-        sh 'cd $JENKINS_HOME; ls -alt | grep docker'
-        withDockerRegistry([credentialsId: 'ecr:us-east-1:aws-credentials', url: 'https://445579089480.dkr.ecr.us-east-1.amazonaws.com']) {
+        docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
+            app.push('latest')
         }
     }
 }

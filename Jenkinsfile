@@ -6,8 +6,6 @@ node {
     }
 
     stage('Build image') {
-        sh 'export DOCKER_CONFIG=$JENKINS_HOME/.docker'
-
         app = docker.build("mastermind")
     }
 
@@ -18,6 +16,7 @@ node {
     }
 
     stage('Push image') {
+        sh 'export DOCKER_CONFIG=$JENKINS_HOME/.docker'
         sh 'printenv'
 
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {

@@ -7,7 +7,6 @@ node {
 
     stage('Build image') {
         sh 'DOCKER_CONFIG=$JENKINS_HOME/.docker'
-        sh 'ls -alt | grep docker'
         app = docker.build("mastermind")
     }
 

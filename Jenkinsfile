@@ -26,7 +26,7 @@ node {
                 sh 'cat ~/.docker/config.json'
                 sh 'echo "}" >> ~/.docker/config.json'
                 sh 'cat ~/.docker/config.json'
-
+                app.push('latest')
             }
         }
     }

@@ -7,6 +7,6 @@ node {
 
     stage('Build image') {
         app = docker.build("mastermind")
-        sh 'python'
+        sh 'usr/bin/python2.6'
     }
 }

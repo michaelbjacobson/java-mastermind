@@ -2,6 +2,7 @@ node {
     def app
 
     stage('Clone repo') {
+        sh 'docker logout'
         checkout scm
     }
 

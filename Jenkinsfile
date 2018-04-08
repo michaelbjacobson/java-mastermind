@@ -11,9 +11,8 @@ node {
 
     stage('Push image') {
         sh 'cd $JENKINS_HOME; rm -rf .docker; mkdir .docker; cd .docker; touch config.json; echo {"auths":{}} >> config.json'
-        sh 'cat $JENKINS_HOME/.docker/config.json'
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
-            sh 'cat $JENKINS_HOME/.docker/config.json'
+            sh 'cat ~/.docker/config.json'
         }
     }
 }

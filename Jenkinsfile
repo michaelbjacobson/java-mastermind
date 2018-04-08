@@ -23,8 +23,7 @@ node {
             docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
                 sh 'cp $JENKINS_HOME/.docker/config.json ~/.docker/config.json'
                 sh 'sed -e "s#https://##g" -i ~/.docker/config.json'
-
-                app.push('latest')
+                sh 'docker push 445579089480.dkr.ecr.us-east-1.amazonaws.com/mastermind:latest'
             }
         }
     }

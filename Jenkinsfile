@@ -7,6 +7,8 @@ node {
 
     stage('Build image') {
         app = docker.build("mastermind")
-        sh 'cd usr/bin; ls -alt'
+        docker.image('mesosphere/aws-cli').inside {
+            sh 'aws help'
+        }
     }
 }

@@ -20,4 +20,11 @@ node {
             app.push('latest')
         }
     }
+
+    stage('Apply terraform') {
+        terraform = docker.run('hashicorp/terraform')
+        terraform.inside {
+            sh 'terraform'
+        }
+    }
 }

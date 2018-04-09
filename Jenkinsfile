@@ -14,4 +14,8 @@ node {
             sh 'mvn test'
         }
     }
+
+    stage('Push image)' {
+        app.push('latest')
+    }
 }

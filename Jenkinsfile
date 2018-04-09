@@ -22,6 +22,6 @@ node {
     }
 
     stage('Apply terraform') {
-        sh 'docker run -d hashicorp/terraform; terraform'
+        sh 'docker run -i -t hashicorp/terraform:light main.tf'
     }
 }

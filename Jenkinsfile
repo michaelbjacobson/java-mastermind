@@ -2,7 +2,6 @@ node {
     def app
 
     stage('Clone repo') {
-        sh 'terraform'
         checkout scm
     }
 

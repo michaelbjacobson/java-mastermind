@@ -20,11 +20,4 @@ node {
             app.push('latest')
         }
     }
-
-    stage('Terraform') {
-        tf = docker.build("hashicorp/terraform:light")
-        tf.inside {
-            sh 'terraform'
-        }
-    }
 }

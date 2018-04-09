@@ -1,18 +1,30 @@
-node {
-
-    withEnv([DOCKER_CONFIG=$JENKINS_HOME/.docker]) {
-
-        def app
-
-        stage('Clone repo') {
-            sh 'docker login -u AWS -p eyJwYXlsb2FkIjoiT245UXlWbVZ1ZHR2UFQ4cmxkWFIza3MxaXA4WHVPOERRQURQZmtWekxXaWJGaHdPd3BtWThUS0VwVlc1d3dKT3cyQ1JpeFlYTDdPYW1YdFJFYW5jZGc5dE1NV01EVlYxNnZRMko3TkFvVHN5RnhRM0JkRmhmbURYZVUza2hvdm1lYmVkekFtV1pVQTh3SStuVzU5ODBjeFk2NHVXTEpoTUVYcU9UL3lueFNCNGJIRVB3QTBqSTE1SnVSdmdaampkbzZ6TFIrbzRNZ2FIYnBHL2J3djQyc3krRmhlOUU0OXBMeWg2bUZ1TXlRSlJTK2hjc2M5aHRxenVaQjBUSUxyRnV3dWhoR3ZzZ3ZmWVhia3kvRk9lQWxldWNxS3owS1J1TnBqemJud013REVVRVR1KzZhekkwL1BqTDhXTG5Ec2hYMVluTGp6TXBqUTBiVUIySXV6K2F3dU9qTzE5bXZOTTZiMjVjaXErNEg4QU1SN0w3LzQybDFBY1dHUm56MTVKUGZCdmJGV0w0dUplbGw4NU9CL1k4OExraFExVC9IY2ovMFE0a0U0cWl3TnhBa3pOcFRJTllWMkFtT05Ic0NzWk5wQzBSV1J0OWc0c2NTMTd5Yk9FcituaURhYUxLbGNPUWI4NDdYSW9nYTl1QTBrTDIxWVJ6MlNaQ2R2MXNjc040cGhXMStFMzlCSnc5U3B1SXhibm5EN21wZ1IxZ05TNmo1c0hNVDJhQkNUdzlkaHlaZ3RPYVQzTzBpSE9rNzRPa09IaXJlMUtsdmVZUFVBd0k4V1pCSjZOSTV1cXppOEx4aEJmK2hqUktjbjBrQVVvblZQWFgvaXhKVnNOUkFUbmhoOUdaS1BYS05waExRZm1WLzFnbmh6dU9yN213ZUdUSC9WRFdEV3VNekxSUDJqWktoUTlnUlRJcWpOQlYrQlhVc3pPTHlqWDg3K3FjVnlFbTkwRHFBOFVsdzE3K3hhSGVwbFdQOXkvS0lGUHB4cGpZYU9UajhEeGFuendIN1MyeHFpOGYvSVNObUszYnp4VGx6S0pxc0duQVVrWSttZ0J6N2lKdkNWNUlaL3h0WGk3RUJFMlhoaC9uNStJQnZ4YTlVa0FuNHZXYjdkblB3d0EwYWFmZ1J3NjB5TkdWc1F2R2VkWWJIR2oyWm5TQjNwdk5zbGU2TVE4L3BaN3VnZzNlZjNvZUZFL1V1RE1VM010TXhpMFE1WUJ3VlpXNlpwY1FwWWFwTUlRbTIwZDVwdG1LR0RyZzZCd1Z1Y1B5WWpMaXhuM2ZxaFkzV1hzTnZ6MHJRdTg2OWNOZGRhMHJ0TzZVTjlGaGcvY1NMVHNlcGxLTEl4L2dyRVFFMXkxN3FyTTNraUdTTHlaQVVSL1RCNzMvQk4yWFJ2cTEzdEF2cCtCQjBTSlNzM2NyNS9hZnEyNEVUNmorNTFPRTh2eW4xdG9LWFE9IiwiZGF0YWtleSI6IkFRRUJBSGh3bTBZYUlTSmVSdEptNW4xRzZ1cWVla1h1b1hYUGU1VUZjZTlScTgvMTR3QUFBSDR3ZkFZSktvWklodmNOQVFjR29HOHdiUUlCQURCb0Jna3Foa2lHOXcwQkJ3RXdIZ1lKWUlaSUFXVURCQUV1TUJFRUREbWVXMkhuU0hpVWZnNmhJUUlCRUlBN3VBbkJwa0xhZFVxLzVZNytINE5Gc0VBTE9HcldZUmdOMTBsblF1NWRMT3FqZG1YQnZFVm5mbS9iNkFRbTdMdmtSSUVaRDRHTnNPT1EySVU9IiwidmVyc2lvbiI6IjIiLCJ0eXBlIjoiREFUQV9LRVkiLCJleHBpcmF0aW9uIjoxNTIzMzE2ODM2fQ== https://445579089480.dkr.ecr.us-east-1.amazonaws.com'
-            checkout scm
+pipeline {
+    agent any
+    stages {
+        stage('Clone') {
+            steps {
+                checkout scm
+            }
         }
 
-        stage('Build image') {
-            app = docker.build("mastermind")
+        stage('Build') {
+            steps {
+                app = docker.build('mastermind')
+            }
         }
-
+        stage('Test') {
+            steps {
+                app.inside {
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                docker.withRegistry('https://445579089480.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+                    app.push('latest')
+                }
+            }
+        }
     }
-
 }

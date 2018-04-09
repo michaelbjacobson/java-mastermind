@@ -22,9 +22,6 @@ node {
     }
 
     stage('Apply terraform') {
-        terraform = docker.run('hashicorp/terraform')
-        terraform.inside {
-            sh 'terraform'
-        }
+        sh 'docker run hashicorp/terraform; terraform'
     }
 }

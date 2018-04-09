@@ -1,30 +1,12 @@
-pipeline {
-    agent {
-        docker {
-                image 'maven:3-alpine'
-                label 'my-defined-label'
-                args  '-v /tmp:/tmp'
-            }
+node {
+    def app
+
+    stage('Clone repo') {
+        sh 'docker login -u AWS -p eyJwYXlsb2FkIjoiV05LODcwejZzdkRCZ3RVWGhISFROcXkyb0Vqd3gzVW9DNFZwd1o1UFlhRDZGNWZLMzYzcE9KQ2JlRk1maSt6QUV1Z1JFYi9pL0RGczhNd0JOcHdGeS9OK0lGVTR2SWdjN2taWWxRVHZ5L1NzRXBpeUZ1ZUZBR2Z2MUI4d1loV0xJaUNBWEY3TjVNZ3pWMENJWUxObERSZytETTdldS80OUFOTERTMzJRWGs4TC96VXlTdmp4WHFHbExzTGt4YmxvaytrZFg1TVc3N01SOEo3RTJSc25VQ0ZndmJFSldLdEJnQmtNZkJoT3llTnV1N05kcmJrVlFJZDFrZWdUREFZL2lBcy9wNDVvL1o4L0x5VjNOQUZMQXVWdGwwRWR6b0N4OWZ2aXpVQWpTalVRcjlWd0lnWUt0UDhOZXFQczZpbnRFSEl4QkNyVDBKclAyQk04ZlhEMFNsZ2FnR05JZVluOWpYZVp0R2ltOGE3OEpFUU9yVDN5MWdtNkpaOERVVnl3b0hpaWdqMmxtSUxHcW9TWGEwZXk0V0MwZTN1dXJaQnVBLzRwVmN5Q2c0U21CZTZOUmdYaWtac1ZnKytreVBEUGFZdFBlOEdBaXQzY2ljb3VwUnBseXowZG9wNFF2VzRLZXcxNEd1RVY3RjNMQlk4a1Q4MzRBSWFjWlM5cXJid3JSL2dZekZvdjlaaXB0d3R1ZDlZM2Y4N2tqYWJ1eDRWZTBDcTR6WXBodElHR2xXQ3U1cjZnL3pBcEp3WDF6NmdsejB1d1MwLzNpcWdmR0V1Q1R0a25KaTl0L3k2VGsyOXZoTEpKbU51NmpXckJ1YWw3WHpkRWViRnl0ZDhJY1g2ZkxrS1RWS2piQlJWcGhZWUgvYkIvcEtESGdrQVJZcVNHOTcrK0wyT2MyaDZBa0RnT25nbFAxcUJZekxDbVg1Y3Uxc1czcTNYNkhrUWFVNktFT1RVVXJEMGtPNVBVdlNlamx0bk5ZOG9ZeW9wejc4U3c2WnRBZkVXdUdYSXEvbU1VeUN4VDFwSi9FK3hpczNZMnBUU2JWMng1VU90RG5xbEo2Wm83MmdrK0FWcG51T0ZVL2RHd2dxT2dQVllwVTQvQ0U5R2ZQeExaQUV2blJNWjBsU3ZoSHVlOHdnQWVsWW0yWHhPdkc3NkFRVTZFdjJacEdwai8xK3FKY2pjRElHQjNmWVA3eGpTSXB5Z0Y4Nnl6MkR5SkRmTjVpNmROODdOSUFmeVEwSEdUK0hOUkJTcytFdkR6ZEszbjlFVEsvRjRDd0NPL0ppUWQ3VzNwRmFyYlJzemxmcDZBRHJCWVZlWVlOancvWVQzNmtWV0R6cmoyYVliRndrQ2MzVmdvYjU2WkFJOWgzdGZRRndXRDFXM1hGcE1DMk5LTC9HMDlqU2Rxck5ULy9mTko0QThJUHBGRHcvRU5VaVBIM1ZXbXFCbTZNUFk9IiwiZGF0YWtleSI6IkFRRUJBSGh3bTBZYUlTSmVSdEptNW4xRzZ1cWVla1h1b1hYUGU1VUZjZTlScTgvMTR3QUFBSDR3ZkFZSktvWklodmNOQVFjR29HOHdiUUlCQURCb0Jna3Foa2lHOXcwQkJ3RXdIZ1lKWUlaSUFXVURCQUV1TUJFRURKcnhwSWdleHZtRjZ6S1FqUUlCRUlBN3hBelYreXNsYktVMDI3OTdFZ3pSMldQZGN0NEpTVEZSb2Z3ZmI5ejhQdUc1MXpxN2V5RVBVMzlDcTRSNUlBR085VWdkV1FFTDVmNUp5ck09IiwidmVyc2lvbiI6IjIiLCJ0eXBlIjoiREFUQV9LRVkiLCJleHBpcmF0aW9uIjoxNTIzMzE3Njg2fQ== https://445579089480.dkr.ecr.us-east-1.amazonaws.com'
+        checkout scm
     }
-    stages {
-        stage('Build') {
-            steps {
-                app = docker.build('mastermind')
-            }
-        }
-        stage('Test') {
-            steps {
-                app.inside {
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                docker.withRegistry('https://445579089480.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
-                    app.push('latest')
-                }
-            }
-        }
+
+    stage('Build image') {
+        app = docker.build("mastermind")
     }
 }

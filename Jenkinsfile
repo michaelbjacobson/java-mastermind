@@ -21,7 +21,8 @@ node {
         }
     }
 
-    stage('Test') {
+    stage('Terraform') {
+        sh 'terraform init'
         sh 'terraform taint aws_ecs_service.mastermind'
         sh 'terraform plan'
         sh 'terraform apply -y'

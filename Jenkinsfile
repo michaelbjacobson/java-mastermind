@@ -6,7 +6,6 @@ node {
     }
 
     stage('Build image') {
-        sh 'sudo usermod -aG docker ${USER}'
         app = docker.build("mastermind")
     }
 

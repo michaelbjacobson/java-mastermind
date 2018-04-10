@@ -57,12 +57,22 @@ resource "aws_ecs_service" "mastermind" {
 resource "aws_elb" "mastermind_elb" {
   name = "mastermind-elb"
   availability_zones = ["us-east-1d"]
+
   listener {
-    lb_port = 80
-    lb_protocol = "http"
-    instance_port = 4567
+    instance_port     = 4567
     instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
   }
+
+  listener {
+    instance_port      = 4567
+    instance_protocol  = "http"
+    lb_port            = 443
+    lb_protocol        = "https"
+    ssl_certificate_id = "arn:aws:acm:us-east-1:445579089480:certificate/37cf8990-8d64-4e87-9c28-9e3c61c99a55"
+  }
+
 }
 
 resource "aws_security_group" "allow_all" {

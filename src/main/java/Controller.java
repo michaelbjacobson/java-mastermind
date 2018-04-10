@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import static spark.Spark.*;
 
-public class Controller {
+class Controller {
 
-    public static void run(Mastermind game) {
+    static void run(Mastermind game) {
 
         Spark.staticFiles.location("/public");
 
@@ -23,7 +23,7 @@ public class Controller {
 
     }
 
-    public static void kill() {
+    static void kill() {
         stop();
     }
 

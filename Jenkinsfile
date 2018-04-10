@@ -2,6 +2,7 @@ node {
     def app
 
     stage('Clone repo') {
+        sh 'aws help'
         checkout scm
     }
 

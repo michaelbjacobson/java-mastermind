@@ -20,4 +20,10 @@ node {
             app.push('latest')
         }
     }
+
+    stage('Test') {
+        sh 'terraform taint aws_ecs_service.mastermind'
+        sh 'terraform plan'
+        sh 'terraform apply -y'
+    }
 }

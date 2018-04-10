@@ -1,5 +1,6 @@
 provider "aws" {
   region = "us-east-1"
+  shared_credentials_file = ".aws/credentials"
 }
 
 resource "aws_ecs_cluster" "ecs_cluster" {

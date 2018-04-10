@@ -57,6 +57,7 @@ resource "aws_ecs_service" "mastermind" {
 resource "aws_elb" "mastermind_elb" {
   name = "mastermind-elb"
   availability_zones = ["us-east-1d"]
+  security_groups = ["${aws_security_group.allow_all.id}"]
 
   listener {
     instance_port     = 4567

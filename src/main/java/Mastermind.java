@@ -8,18 +8,18 @@ public class Mastermind {
         this.code = codeCreator.newCode();
     }
 
-    public String guess(String guess) {
+    String guess(String guess) {
         if ( guess.matches("[012345]{4}") ) {
             return feedbackForGuess(guess);
         }
         return null;
     }
 
-    public void reset() {
+    void reset() {
         this.code = codeCreator.newCode();
     }
 
-    public String getCode() {
+    String getCode() {
         return this.code;
     }
 

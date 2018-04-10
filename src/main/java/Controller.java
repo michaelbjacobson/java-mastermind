@@ -11,12 +11,13 @@ class Controller {
 
         Spark.staticFiles.location("/public");
 
-        get("/", (req, res) -> {
-
+        before("/", (req, res) -> {
             if (req.protocol().equals("HTTP/1.1")) {
                 res.redirect("https://www.java-mastermind.com");
             }
+        });
 
+        get("/", (req, res) -> {
             game.reset();
             Map<String, Object> attributes = new HashMap<>();
             return new ModelAndView(attributes, "index.ftl");

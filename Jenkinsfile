@@ -3,6 +3,7 @@ node {
 
     stage('Clone repo') {
         checkout scm
+        sh 'ls -alt'
     }
 
     stage('Build image') {

@@ -13,7 +13,7 @@ public class Slow_IntegrationTest {
 
     @BeforeClass
     public static void setUpAll() throws InterruptedException {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "/usr/bin/local/geckodriver");
         driver = new FirefoxDriver();
 
         String testCode = "0123";

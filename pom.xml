@@ -104,6 +104,7 @@
                 <configuration>
                     <includes>
                         <include>**/*Fast*</include>
+                        <include>**/*Slow*</include>
                     </includes>
                 </configuration>
             </plugin>

@@ -3,6 +3,7 @@ node {
 
     stage('Clone repo') {
         checkout scm
+        sh 'pwd'
         sh 'ls -alt'
     }
 

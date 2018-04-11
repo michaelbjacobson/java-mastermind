@@ -41,8 +41,8 @@ resource "aws_ecs_task_definition" "mastermind" {
                           EOF
 }
 
-resource "aws_ecs_service" "mastermind" {
-  name = "mastermind"
+resource "aws_ecs_service" "mastermind_service" {
+  name = "mastermind-service"
   cluster = "${aws_ecs_cluster.ecs_cluster.id}"
   task_definition = "${aws_ecs_task_definition.mastermind.arn}"
   desired_count = 1

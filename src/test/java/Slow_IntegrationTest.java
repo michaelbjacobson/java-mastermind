@@ -2,26 +2,20 @@ import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class Slow_IntegrationTest {
 
-    private static FirefoxDriver driver;
+    private static WebDriver driver;
 
     @BeforeClass
     public static void setUpAll() throws InterruptedException {
-        FirefoxBinary firefoxBinary = new FirefoxBinary();
-        firefoxBinary.addCommandLineOptions("--headless");
+        System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
         System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setBinary(firefoxBinary);
-        driver = new FirefoxDriver(firefoxOptions);
+        driver = new FirefoxDriver();
 
         String testCode = "0123";
         CodeCreator codeCreatorMock = mock(CodeCreator.class);

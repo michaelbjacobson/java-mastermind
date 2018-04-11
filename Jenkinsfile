@@ -22,6 +22,6 @@ node {
     }
 
     stage('ECS Deploy') {
-        sh 'ecs-deploy -c mastermind-cluster -n mastermind-service -i 445579089480.dkr.ecr.us-east-1.amazonaws.com/mastermind:latest'
+        as 'aws '
     }
 }

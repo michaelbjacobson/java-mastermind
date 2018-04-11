@@ -47,11 +47,6 @@ resource "aws_ecs_service" "mastermind_service" {
   task_definition = "${aws_ecs_task_definition.mastermind.arn}"
   desired_count = 1
 
-  placement_constraints {
-    type       = "memberOf"
-    expression = "task:family == mastermind"
-  }
-
   load_balancer {
     elb_name = "${aws_elb.mastermind_elb.id}"
     container_name = "mastermind"

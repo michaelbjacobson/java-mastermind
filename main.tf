@@ -47,6 +47,11 @@ resource "aws_ecs_service" "mastermind_service" {
   task_definition = "${aws_ecs_task_definition.mastermind.arn}"
   desired_count = 1
 
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.availability-zone in [us-east-1a, us-east-1b, us-east-1c, us-east-1d]"
+  }
+
   load_balancer {
     elb_name = "${aws_elb.mastermind_elb.id}"
     container_name = "mastermind"

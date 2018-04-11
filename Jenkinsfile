@@ -20,8 +20,4 @@ node {
             app.push('latest')
         }
     }
-
-    stage('ECS Deploy') {
-        as 'aws '
-    }
 }

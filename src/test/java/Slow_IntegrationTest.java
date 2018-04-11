@@ -3,6 +3,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -13,8 +15,11 @@ public class Slow_IntegrationTest {
 
     @BeforeClass
     public static void setUpAll() throws InterruptedException {
+        System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
         System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
-        driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(true);
+        driver = new FirefoxDriver(options);
 
         String testCode = "0123";
         CodeCreator codeCreatorMock = mock(CodeCreator.class);

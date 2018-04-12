@@ -16,12 +16,6 @@ node {
         }
     }
 
-    stage('Run integration tests') {
-        app.inside {
-            sh 'mvn -Dtest=Slow* test'
-        }
-    }
-
     stage('Push Docker image') {
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
             app.push('latest')
@@ -29,6 +23,11 @@ node {
     }
 
     stage('Update ECS service') {
+        sh 'response=$(curl -s -o /dev/null -w "%{http_code}\n" https://java-mastermind.com/) \
+            if [ "$response" != "200" ] \
+            then \
+             exit 1 \
+            fi'
         sh 'sudo terraform init -input=false'
         sh 'sudo terraform taint aws_ecs_service.mastermind_service'
         sh 'sudo terraform plan -out=tfplan -input=false'

@@ -21,4 +21,11 @@ node {
             app.push('latest')
         }
     }
+
+    stage('Update ECS Service') {
+        sh 'terraform init -input=false'
+        sh 'terraform taint aws_ecs_service.mastermind_service'
+        sh 'terraform plan -out=tfplan -input=false'
+        sh 'terraform apply -input=false tfplan'
+    }
 }

@@ -15,8 +15,7 @@ public class Slow_IntegrationTest {
 
     @BeforeClass
     public static void setUpAll() throws InterruptedException {
-        System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
-        System.setProperty("webdriver.gecko.driver", "/usr/local/bin/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxOptions options = new FirefoxOptions();
         options.setHeadless(true);
         driver = new FirefoxDriver(options);

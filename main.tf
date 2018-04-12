@@ -2,6 +2,15 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform {
+  backend "s3" {
+    encrypt = true
+    bucket = "mastermind-terraform-state"
+    region = "us-east-1"
+    key = "global/s3/terraform.tfstate"
+  }
+}
+
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = "mastermind-cluster"
 }

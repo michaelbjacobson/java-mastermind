@@ -6,7 +6,7 @@ node {
 
     }
 
-    stage('Build image') {
+    stage('Build Docker image') {
         app = docker.build("mastermind")
     }
 
@@ -16,13 +16,13 @@ node {
         }
     }
 
-    stage('Push image') {
+    stage('Push Docker image') {
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
             app.push('latest')
         }
     }
 
-    stage('Update ECS Service') {
+    stage('Update ECS service') {
         sh 'sudo terraform init -input=false'
         sh 'sudo terraform taint aws_ecs_service.mastermind_service'
         sh 'sudo terraform plan -out=tfplan -input=false'

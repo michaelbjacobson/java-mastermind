@@ -13,12 +13,6 @@ node {
         sh 'sudo mvn -Dtest=Fast* test'
     }
 
-    /*
-    stage('Run integration tests') {
-        sh 'sudo mvn -Dtest=Slow* test'
-    }
-    */
-
     stage('Push Docker image') {
         docker.withRegistry("https://445579089480.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") {
             app.push('latest')

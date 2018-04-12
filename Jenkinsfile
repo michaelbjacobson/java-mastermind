@@ -21,7 +21,6 @@ node {
         }
     }
 
-
     stage('Update ECS service') {
         sh 'sudo terraform init -input=false'
         sh 'sudo terraform taint aws_ecs_service.mastermind_service'

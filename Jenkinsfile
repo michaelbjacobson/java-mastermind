@@ -4,8 +4,8 @@ node {
     stage('Clone repo') {
         checkout scm
         sh (
+            returnStdout: true,
             script: 'curl -s -o /dev/null -w "%{http_code}" https://java-mastermind.com/'
-            returnStdout: true
         ).trim()
     }
 

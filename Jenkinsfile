@@ -3,7 +3,7 @@ node {
 
     stage('Clone repo') {
         checkout scm
-        sh 'curl -s -o /dev/null -w "%{http_code}" https://java-mastermind.com/'
+        sh 'curl https://java-mastermind.com'
     }
 
     stage('Build Docker image') {

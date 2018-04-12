@@ -3,7 +3,6 @@ node {
 
     stage('Clone repo') {
         checkout scm
-        sh 'curl https://java-mastermind.com'
     }
 
     stage('Build Docker image') {
@@ -22,12 +21,11 @@ node {
         }
     }
 
-    if (1 == 2) {
-        stage('Update ECS service') {
-            sh 'sudo terraform init -input=false'
-            sh 'sudo terraform taint aws_ecs_service.mastermind_service'
-            sh 'sudo terraform plan -out=tfplan -input=false'
-            sh 'sudo terraform apply -input=false tfplan'
-        }
+
+    stage('Update ECS service') {
+        sh 'sudo terraform init -input=false'
+        sh 'sudo terraform taint aws_ecs_service.mastermind_service'
+        sh 'sudo terraform plan -out=tfplan -input=false'
+        sh 'sudo terraform apply -input=false tfplan'
     }
 }

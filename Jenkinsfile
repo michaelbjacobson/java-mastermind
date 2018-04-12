@@ -10,8 +10,11 @@ node {
     }
 
     stage('Run unit tests') {
-        sh 'pwd'
         sh 'mvn -Dtest=Fast* test'
+    }
+
+    stage('Run integration tests') {
+        sh 'mvn -Dtest=Slow* test'
     }
 
     stage('Push Docker image') {

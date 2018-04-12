@@ -1,12 +1,11 @@
 node {
     def app
-    def siteHttpCode = sh (
+    HTTPCODE = sh (
         script: 'curl -s -o /dev/null -w "%{http_code}" https://java-mastermind.com/'
         returnStdout: true
     ).trim()
 
     stage('Clone repo') {
-        echo "${siteHttpCode}"
         checkout scm
     }
 
@@ -26,7 +25,7 @@ node {
         }
     }
 
-    if (siteHttpCode == '200') {
+    if (1 == 2) {
         stage('Update ECS service') {
             sh 'sudo terraform init -input=false'
             sh 'sudo terraform taint aws_ecs_service.mastermind_service'

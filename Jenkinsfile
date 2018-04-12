@@ -12,7 +12,13 @@ node {
 
     stage('Run unit tests') {
         app.inside {
-            sh 'mvn test'
+            sh 'mvn -Dtest=Fast* test'
+        }
+    }
+
+    stage('Run integration tests') {
+        app.inside {
+            sh 'mvn -Dtest=Slow* test'
         }
     }
 

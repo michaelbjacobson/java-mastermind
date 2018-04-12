@@ -23,7 +23,6 @@ node {
     }
 
     stage('Update ECS Service') {
-        sh 'printenv'
         sh 'sudo terraform init -input=false'
         sh 'sudo terraform taint aws_ecs_service.mastermind_service'
         sh 'sudo terraform plan -out=tfplan -input=false'

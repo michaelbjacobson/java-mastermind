@@ -1,12 +1,12 @@
 node {
     def app
-    HTTPCODE = sh (
-        script: 'curl -s -o /dev/null -w "%{http_code}" https://java-mastermind.com/'
-        returnStdout: true
-    ).trim()
 
     stage('Clone repo') {
         checkout scm
+        sh (
+            script: 'curl -s -o /dev/null -w "%{http_code}" https://java-mastermind.com/'
+            returnStdout: true
+        ).trim()
     }
 
     stage('Build Docker image') {

@@ -10,9 +10,8 @@ node {
     }
 
     stage('Run unit tests') {
-        app.inside {
-            sh 'mvn -Dtest=Fast* test'
-        }
+        sh 'pwd'
+        sh 'mvn -Dtest=Fast* test'
     }
 
     stage('Push Docker image') {

@@ -1,5 +1,6 @@
 node {
     def app
+    def siteHttpCode = sh 'curl -s -o /dev/null -w "%{http_code}\n" https://java-mastermind.com/'
 
     stage('Clone repo') {
         checkout scm
@@ -22,15 +23,12 @@ node {
         }
     }
 
-    stage('Update ECS service') {
-        sh 'response=$(curl -s -o /dev/null -w "%{http_code}\n" https://java-mastermind.com/) \
-            if [ "$response" != "200" ] \
-            then \
-             exit 1 \
-            fi'
-        sh 'sudo terraform init -input=false'
-        sh 'sudo terraform taint aws_ecs_service.mastermind_service'
-        sh 'sudo terraform plan -out=tfplan -input=false'
-        sh 'sudo terraform apply -input=false tfplan'
+    if (siteHttpCode != '000') {
+        stage('Update ECS service') {
+            sh 'sudo terraform init -input=false'
+            sh 'sudo terraform taint aws_ecs_service.mastermind_service'
+            sh 'sudo terraform plan -out=tfplan -input=false'
+            sh 'sudo terraform apply -input=false tfplan'
+        }
     }
 }
